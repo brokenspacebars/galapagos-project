@@ -8,5 +8,6 @@ module.exports = {
     uri: 'mongodb://localhost/galapagos-dev'
   },
 
-  seedDB: true
+  // Disable seeding in dev mode
+  seedDB: false
 };
