@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('galapagosApp')
-  .controller('SettingsCtrl', function ($scope, User, Auth) {
+  .controller('SettingsCtrl', function ($http, $scope, User, Auth) {
     $scope.errors = {};
+    $scope.user = Auth.getCurrentUser();
 
     $scope.changePassword = function(form) {
       $scope.submitted = true;
@@ -18,4 +19,23 @@ angular.module('galapagosApp')
         });
       }
 		};
+
+    $scope.updateUser = function() {
+      // if($scope.newThing === '') {
+      //   return;
+      // }
+      $http.put('/api/users/' + $scope.user._id + '/update', $scope.user)
+      .then(function() {
+        $scope.message = "Profile updated.";
+      })
+      .catch(function () {
+        $scope.errors.other = 'Unable to update.';
+        $scope.message = '';
+      });
+      console.log('Update user...');
+    };
+
+    $scope.isAvailable = function() {
+      return User.isAvailable;
+    };
   });

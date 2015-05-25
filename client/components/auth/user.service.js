@@ -17,6 +17,12 @@ angular.module('galapagosApp')
         params: {
           id:'me'
         }
-      }
+      },
+      updateUser: {
+        method: 'PUT',
+        params: {
+
+        }
+      },
 	  });
   });
