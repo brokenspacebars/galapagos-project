@@ -12,6 +12,15 @@ var UserSchema = new Schema({
     type: String,
     default: 'user'
   },
+  isAvailable: {
+    type: Boolean,
+    default: false
+  },
+  availablePeriod: {
+    startDate: Date,
+    endDate: Date
+  },
+  bio: String,
   hashedPassword: String,
   provider: String,
   salt: String,

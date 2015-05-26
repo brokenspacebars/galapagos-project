@@ -4,6 +4,11 @@ angular.module('galapagosApp')
   .controller('SettingsCtrl', function ($http, $scope, User, Auth) {
     $scope.errors = {};
     $scope.user = Auth.getCurrentUser();
+    // console.log($scope.user.availablePeriod.startDate);
+    console.log($scope.user.name);
+    console.log($scope.user);
+
+
 
     $scope.changePassword = function(form) {
       $scope.submitted = true;
@@ -27,12 +32,20 @@ angular.module('galapagosApp')
       $http.put('/api/users/' + $scope.user._id + '/update', $scope.user)
       .then(function() {
         $scope.message = "Profile updated.";
+        $scope.errors = {};
       })
       .catch(function () {
-        $scope.errors.other = 'Unable to update.';
+        $scope.errors.other = "Unable to update";
         $scope.message = '';
       });
       console.log('Update user...');
+    };
+
+    $scope.open = function($event) {
+      $event.preventDefault();
+      $event.stopPropagation();
+
+      $scope.opened = true;
     };
 
     $scope.isAvailable = function() {

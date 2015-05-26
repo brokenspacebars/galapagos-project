@@ -85,9 +85,24 @@ exports.changePassword = function(req, res, next) {
 exports.updateUser = function(req, res, next) {
   var userId = req.user._id;
   var name = req.body.name;
+  var isAvailable = req.body.isAvailable;
+  var availablePeriodStart = req.body.availablePeriod.startDate;
+  var availablePeriodEnd = req.body.availablePeriod.endDate;
+  var bio = req.body.bio;
+
+  // Debug
+  console.log("Updatding...");
+
+  if (availablePeriodStart > availablePeriodEnd) {
+    return validationError(res, "Not valid date range");
+  }
 
   User.findById(userId, function(err, user) {
     user.name = name;
+    user.isAvailable = isAvailable;
+    user.availablePeriod.startDate = availablePeriodStart;
+    user.availablePeriod.endDate = availablePeriodEnd;
+    user.bio = bio;
     user.save(function(err) {
       if (err) return res.json(500, err);
       res.send(200);
