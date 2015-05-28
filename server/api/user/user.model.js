@@ -50,7 +50,10 @@ UserSchema
   .get(function() {
     return {
       'name': this.name,
-      'role': this.role
+      'role': this.role,
+      'isAvailable': this.isAvailable,
+      'availablePeriod': this.availablePeriod,
+      'bio': this.bio
     };
   });
 
