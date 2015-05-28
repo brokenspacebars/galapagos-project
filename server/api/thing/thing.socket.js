@@ -16,6 +16,7 @@ exports.register = function(socket) {
 }
 
 function onSave(socket, doc, cb) {
+	console.log('emitting thing:save');
   socket.emit('thing:save', doc);
 }
 

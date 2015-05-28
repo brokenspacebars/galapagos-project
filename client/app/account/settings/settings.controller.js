@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('galapagosApp')
-  .controller('SettingsCtrl', function ($http, $scope, User, Auth) {
+  .controller('SettingsCtrl', function ($http, $scope, User, Auth, socket) {
     $scope.errors = {};
     $scope.user = Auth.getCurrentUser();
     // console.log($scope.user.availablePeriod.startDate);
@@ -29,7 +29,7 @@ angular.module('galapagosApp')
       // if($scope.newThing === '') {
       //   return;
       // }
-      $http.put('/api/users/' + $scope.user._id + '/update', $scope.user)
+      $http.post('/api/users/' + $scope.user._id, $scope.user)
       .then(function() {
         $scope.message = "Profile updated.";
         $scope.errors = {};

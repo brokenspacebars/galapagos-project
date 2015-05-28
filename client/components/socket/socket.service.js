@@ -62,6 +62,47 @@ angular.module('galapagosApp')
       },
 
       /**
+       *
+       * @param {String} modelName
+       * @param {Array} array
+       * @param {Function} cb
+       */
+      syncUpdatesAvailableUsers: function (modelName, array, cb) {
+        cb = cb || angular.noop;
+
+        /**
+         * Syncs item creation/updates on 'model:save'
+         */
+        socket.on(modelName + ':save', function (item) {
+          var oldItem = _.find(array, {_id: item._id});
+          var index = array.indexOf(oldItem);
+          var event = 'created';
+
+          // replace oldItem if it exists
+          // otherwise just add item to the collection
+          if (oldItem && item.isAvailable) {
+            array.splice(index, 1, item);
+            event = 'updated';
+          } else if (item.isAvailable) {
+            array.push(item);
+          } else if (!item.isAvailable) {
+            array.splice(index,1);
+          }
+
+          cb(event, item, array);
+        });
+
+        /**
+         * Syncs removed items on 'model:remove'
+         */
+        socket.on(modelName + ':remove', function (item) {
+          var event = 'deleted';
+          _.remove(array, {_id: item._id});
+          cb(event, item, array);
+        });
+      },
+
+      /**
        * Removes listeners for a models updates on the socket
        *
        * @param modelName
