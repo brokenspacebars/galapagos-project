@@ -85,6 +85,7 @@ exports.changePassword = function(req, res, next) {
 exports.updateUser = function(req, res, next) {
   var userId = req.user._id;
   var name = req.body.name;
+  var username = req.body.username;
   var isAvailable = req.body.isAvailable;
   var availablePeriodStart = req.body.availablePeriod.startDate;
   var availablePeriodEnd = req.body.availablePeriod.endDate;
@@ -99,6 +100,7 @@ exports.updateUser = function(req, res, next) {
 
   User.findById(userId, function(err, user) {
     user.name = name;
+    user.username = username;
     user.isAvailable = isAvailable;
     user.availablePeriod.startDate = availablePeriodStart;
     user.availablePeriod.endDate = availablePeriodEnd;

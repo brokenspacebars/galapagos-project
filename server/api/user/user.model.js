@@ -6,7 +6,13 @@ var crypto = require('crypto');
 var authTypes = ['github', 'twitter', 'facebook', 'google'];
 
 var UserSchema = new Schema({
-  name: String,
+  name: { type: String, trim: true },
+  username: {
+    type: String,
+    unique: true,
+    required: true,
+    trim: true
+  },
   email: { type: String, lowercase: true },
   role: {
     type: String,
@@ -17,10 +23,10 @@ var UserSchema = new Schema({
     default: false
   },
   availablePeriod: {
-    startDate: Date,
-    endDate: Date
+    startDate: {type: Date, default: Date.now},
+    endDate: {type: Date, default: Date.now}
   },
-  bio: String,
+  bio: { type: String, trim: true },
   hashedPassword: String,
   provider: String,
   salt: String,
@@ -50,6 +56,7 @@ UserSchema
   .get(function() {
     return {
       'name': this.name,
+      'username': this.username,
       'role': this.role,
       'isAvailable': this.isAvailable,
       'availablePeriod': this.availablePeriod,
@@ -106,11 +113,44 @@ var validatePresenceOf = function(value) {
   return value && value.length;
 };
 
+// Generate random username
+var randomUsername = function() {
+  var first = [
+    'daring', 'dishonest', 'criminal', 'captain', 'buccaneer',
+    'brutal', 'barbaric', 'evil', 'ferocious', 'gunner', 'hostile',
+    'infamous', 'jolly', 'lawless', 'legendary', 'notorious',
+    'robber', 'scurvy'
+  ];
+  var second = [
+    'ship', 'sea', 'tide', 'treasure', 'weapon', 'rat', 'loot',
+    'gangplank', 'fleet', 'crook', 'loot', 'hull', 'bandanna',
+    'deck', 'doubloon', 'island', 'cave', 'crew', 'corsair'
+  ];
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  var nick =
+    capitalizeFirstLetter(first[Math.floor(Math.random() * first.length)]) +
+    capitalizeFirstLetter(second[Math.floor(Math.random() * second.length)]) +
+    Math.floor(Math.random()*899 + 100).toString();
+
+  // Debug
+  console.log('Nick generated: ' + nick);
+  return nick;
+
+}
+
 /**
  * Pre-save hook
  */
 UserSchema
   .pre('save', function(next) {
+    if (this.isNew) {
+      this.username = randomUsername();
+    }
+
     if (!this.isNew) return next();
 
     if (!validatePresenceOf(this.hashedPassword) && authTypes.indexOf(this.provider) === -1)

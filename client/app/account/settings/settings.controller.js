@@ -35,10 +35,12 @@ angular.module('galapagosApp')
         $scope.errors = {};
       })
       .catch(function () {
-        $scope.errors.other = "Unable to update";
+        console.log('cathck');
+        $scope.errors.other = "Unable to update.";
         $scope.message = '';
       });
       console.log('Update user...');
+      console.log($scope.errors);
     };
 
     $scope.open = function($event) {
