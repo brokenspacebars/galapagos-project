@@ -9,7 +9,6 @@ angular.module('galapagosApp')
     $http.get('api/users/' + id)
     	.success(function(res) {
     		$scope.user = res;
-	    	socket.syncSingleUser('user', $scope.user);
 	    })
 	    .catch(function(err) {
 	    	$scope.errors.other = err;
