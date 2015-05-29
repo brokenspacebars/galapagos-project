@@ -1,3 +1,38 @@
-<div class="col-md-12">
-This is the profile view.
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+	<div class="alert alert-warning alert-dismissible" ng-show="errors.other" role="alert" >
+	    <p ng-show="errors.other.status === 500">
+	    	Unable to find user.
+	    </p>
+	    <p ng-show="errors.other.status != 500">
+	    	Unable to fetch data.
+	    </p>
+	    <p>
+	    	Status: {{ errors.other.status }}, {{ errors.other.statusText }}.
+	    </p>
+	</div>
+
+	<div ng-show="!errors.other">
+		<div class="row">
+			<div class="page-header">
+			  <h1>{{ user.name }} <small>{{ user.username }}</small></h1>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-6 col-sm-offset-3">
+				<div class="well" ng-show="!user.isAvailable">
+					The user is not currentely available for sailing.
+				</div>
+
+				<div class="well" ng-show="user.isAvailable">
+					The user is ready to sail! Dates available:
+					<span class="">
+						{{ user.availablePeriod.startDate | date:'dd/MM/yyyy' }} - {{ user.availablePeriod.endDate | date:'dd/MM/yyyy' }}
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

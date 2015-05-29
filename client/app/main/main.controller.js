@@ -18,7 +18,7 @@ angular.module('galapagosApp')
 
         // Debugg
         // console.log(user);
-      };
+      }
       socket.syncUpdatesAvailableUsers('user', $scope.availableUsers);
 
       // Debug

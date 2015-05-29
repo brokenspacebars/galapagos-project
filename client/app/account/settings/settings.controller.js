@@ -31,12 +31,12 @@ angular.module('galapagosApp')
       // }
       $http.post('/api/users/' + $scope.user._id, $scope.user)
       .then(function() {
-        $scope.message = "Profile updated.";
+        $scope.message = 'Profile updated.';
         $scope.errors = {};
       })
       .catch(function () {
         console.log('cathck');
-        $scope.errors.other = "Unable to update.";
+        $scope.errors.other = 'Unable to update.';
         $scope.message = '';
       });
       console.log('Update user...');

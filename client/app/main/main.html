@@ -31,9 +31,10 @@
   <div class="row">
     <div class="col-lg-12">
       <h1 class="page-header">Available users:</h1>
+      <p ng-show="availableUsers.length === 0">There are not available users.</p>
       <ul class="col-md-4 col-lg-4 col-sm-6 list-group" ng-repeat="user in availableUsers">
         <li class="list-group-item">
-          <a href="#" tooltip="{{user.bio}}">{{user.name}}</a>
+          <a href="profile/{{ user._id }}" tooltip="{{user.bio}}">{{user.name}}</a>
           <span class="badge">
             {{ user.availablePeriod.startDate | date:'dd/MM' }} - {{ user.availablePeriod.endDate | date:'dd/MM' }}
           </span>
