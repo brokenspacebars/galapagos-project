@@ -3,9 +3,14 @@
 angular.module('galapagosApp')
   .config(function ($stateProvider) {
     $stateProvider
-      .state('profile', {
+      .state('profileUser', {
         url: '/profile/:_id',
-        templateUrl: 'app/profile/profile.html',
-        controller: 'ProfileCtrl'
+        templateUrl: 'app/profile/profileUser.html',
+        controller: 'ProfileUserCtrl'
+      })
+      .state('profileSailboat', {
+        url: '/profile/:_id',
+        templateUrl: 'app/profile/profileSailboat.html',
+        controller: 'ProfileSailboatCtrl'
       });
   });
