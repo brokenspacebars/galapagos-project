@@ -27,6 +27,7 @@ var UserSchema = new Schema({
     endDate: {type: Date, default: Date.now}
   },
   bio: { type: String, trim: true },
+  sailboats: [{ type: Schema.Types.ObjectId, ref: 'Sailboat' }],
   hashedPassword: String,
   provider: String,
   salt: String,

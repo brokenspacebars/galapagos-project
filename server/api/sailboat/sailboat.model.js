@@ -4,13 +4,29 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var SailboatSchema = new Schema({
-  name: String,
-  info: String,
-  isActive: Boolean,
-  boatModel: String,
-  raceDate: Date,
+  name: {
+  	type: String,
+  	default: 'Boat name'
+  },
+  info: {
+  	type: String,
+  	default: 'Boat info'
+  },
+  isActive: {
+  	type: Boolean,
+  	default: false
+  },
+  boatModel: {
+  	type: String,
+  	default: 'Boat model'
+  },
+  raceDate: {
+  	type: Date,
+  	default: Date.now
+  },
   _creator: {
-  	type: Number,
+  	type: Schema.Types.ObjectId,
+  	ref: 'User',
   	required: true
   }
 });
