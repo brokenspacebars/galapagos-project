@@ -4,6 +4,7 @@ angular.module('galapagosApp')
   .controller('MainCtrl', function ($scope, $http, socket) {
     $scope.awesomeThings = [];
     $scope.availableUsers = [];
+    $scope.availableSailboats = [];
 
     $http.get('/api/things').success(function(awesomeThings) {
       $scope.awesomeThings = awesomeThings;
@@ -19,7 +20,7 @@ angular.module('galapagosApp')
         // Debugg
         // console.log(user);
       }
-      socket.syncUpdatesAvailableUsers('user', $scope.availableUsers);
+      socket.syncUpdatesAvailable('user', $scope.availableUsers);
 
       // Debug
       // console.log(users);

@@ -12,6 +12,6 @@ angular.module('socketMock', [])
 
       syncUpdates: function() {},
       unsyncUpdates: function() {},
-      syncUpdatesAvailableUsers: function() {}
+      syncUpdatesAvailable: function() {}
     };
   });

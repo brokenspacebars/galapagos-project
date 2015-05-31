@@ -67,7 +67,7 @@ angular.module('galapagosApp')
        * @param {Array} array
        * @param {Function} cb
        */
-      syncUpdatesAvailableUsers: function (modelName, array, cb) {
+      syncUpdatesAvailable: function (modelName, array, cb) {
         cb = cb || angular.noop;
 
         /**
