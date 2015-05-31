@@ -12,7 +12,7 @@ var SailboatSchema = new Schema({
   	type: String,
   	default: 'Boat info'
   },
-  isActive: {
+  isAvailable: {
   	type: Boolean,
   	default: false
   },
@@ -42,7 +42,7 @@ SailboatSchema
     return {
       'name': this.name,
       'info': this.info,
-      'isActive': this.isActive,
+      'isAvailable': this.isAvailable,
       'boatModel': this.boatModel,
       'raceDate': this.raceDate,
       'raceName': this.raceName,
