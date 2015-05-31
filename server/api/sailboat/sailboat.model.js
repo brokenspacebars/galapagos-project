@@ -24,6 +24,7 @@ var SailboatSchema = new Schema({
   	type: Date,
   	default: Date.now
   },
+  raceName: String,
   _creator: {
   	type: Schema.Types.ObjectId,
   	ref: 'User',
@@ -43,7 +44,9 @@ SailboatSchema
       'info': this.info,
       'isActive': this.isActive,
       'boatModel': this.boatModel,
-      'raceDate': this.raceDate
+      'raceDate': this.raceDate,
+      'raceName': this.raceName,
+      'creator': this.populate(_creator)
     };
   });
 

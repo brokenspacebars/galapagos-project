@@ -95,13 +95,13 @@
 
   <h3>Sailboats</h3>
 
-  <div class="row"> <!-- Big row to contain sailboat rows -->
-    <div class="well" ng-repeat="sailboat in sailboats"> <!-- Well that repeats for each sailboat -->
+  <div class="row" ng-repeat="sailboat in sailboats track by $index"> <!-- Big row to contain sailboat rows -->
+    <div class="well" > <!-- Well that repeats for each sailboat -->
       <div class="row">
         <div class="col-sm-4">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title"> Sailboat name</h3>
+              <h3 class="panel-title"> Sailboat name {{ $index }}</h3>
             </div>
             <div class="panel-body">
               <div class="input-group">
@@ -137,6 +137,21 @@
       </div> <!-- End of first sailboat row -->
 
       <div class="row">
+        <div class="col-sm-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title"> Race name</h3>
+            </div>
+            <div class="panel-body">
+              <div class="input-group">
+                <input type="text" class="form-control" ng-model="sailboat.raceName" placeholder="{{ sailboat.raceName }}">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> <!-- End of second sailboat row -->
+
+      <div class="row">
         <div class="col-sm-12">
           <div class="panel panel-default">
             <div class="panel-heading">
@@ -160,20 +175,20 @@
             </div>
           </div>
         </div>
-      </div> <!-- End of second sailboat row -->
+      </div> <!-- End of third sailboat row -->
 
       <div class="row">
         <div class="col-sm-4">
-          <button class="btn btn-primary" ng-click="updateBoat()">Update Boat Info</button>
-          <button class="btn btn-danger" ng-click="deleteBoat()">Delete Boat</button>
+          <button class="btn btn-primary" ng-click="updateBoat($index)">Update Boat Info</button>
+          <button class="btn btn-danger" ng-click="deleteBoat($index)">Delete Boat</button>
         </div>
       </div>
     </div> <!-- Well that repeats for each sailboat -->
-  </div> <!-- Big row to contain sailboat rows -->
+  </div> <!-- Big row to contain sailboat rows - End ng-repeat -->
 
   <div class="row">
     <div class="col-sm-2 col-sm-offset-10">
-      <button class="btn btn-primary" ng-click="">Add new boat</button>
+      <button class="btn btn-primary" ng-click="createBoat()">Add new boat</button>
     </div>
   </div>
 

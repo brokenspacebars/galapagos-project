@@ -22,11 +22,20 @@ exports.show = function(req, res) {
 
 // Creates a new sailboat in the DB.
 exports.create = function(req, res) {
-  console.log(req);
-  // Sailboat.create(req.body, function(err, sailboat) {
-  //   if(err) { return handleError(res, err); }
-  //   return res.json(201, sailboat);
-  // });
+  console.log(req.user.name);
+  console.log('------');
+  console.log(req.user._id);
+  console.log('------');
+  console.log(req.body);
+  console.log('------');
+  // Add creator's _id on the sailboat
+  req.body._creator = req.user._id;
+  Sailboat.create(req.body, function(err, sailboat) {
+    if(err) { return handleError(res, err); }
+    // sailboat._creator = req.user._id;
+    console.log(sailboat);
+    return res.json(201, sailboat);
+  });
 };
 
 // Updates an existing sailboat in the DB.
@@ -57,9 +66,9 @@ exports.destroy = function(req, res) {
 
 exports.showCreatorBoats = function(req, res) {
   Sailboat.find({ _creator: req.params.creator})
-    .exec(function(err, sailboat) {
+    .exec(function(err, sailboats) {
       if (err) return handleError(res, err);
-      return res.json(200, sailboat);
+      return res.json(200, sailboats);
     });
 };
 
