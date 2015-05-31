@@ -148,9 +148,12 @@ var randomUsername = function() {
  */
 UserSchema
   .pre('save', function(next) {
-    if (this.isNew) {
-      this.username = randomUsername();
-    }
+    console.log('is in pre-save');
+    // console.log(this);
+    // console.log(next);
+    // if (this.isNew) {
+    //   this.username = randomUsername();
+    // }
 
     if (!this.isNew) return next();
 
@@ -159,6 +162,35 @@ UserSchema
     else
       next();
   });
+
+  UserSchema
+    .pre('validate', function(next) {
+      console.log('is in pre-validate');
+      // console.log(this);
+      var uniqueUsername = false;
+
+      // while (!(uniqueUsername)) {
+        this.username = randomUsername();
+        mongoose.models['User'].findOne({ username: this.username }, function(err, users) {
+          console.log('Users with the generated username: ', users);
+          if (!users) {
+            console.log('Not users');
+          } else {
+            console.log('Users, true');
+          }
+
+          if (!users) {
+            uniqueUsername = true;
+            console.log('Generated username is unique. Going on...');
+            next();
+          } else {
+            console.log('Generated username is not unique. Trying again...');
+          }
+        });
+      // } // end while
+
+      // next();
+    });
 
 /**
  * Methods
