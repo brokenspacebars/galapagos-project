@@ -37,7 +37,7 @@ angular.module('galapagosApp')
     };
 
     $scope.updateBoat = function (index) {
-      $http.put('/api/sailboats/' + $scope.sailboats[index]._id, $scope.sailboats[index])
+      $http.post('/api/sailboats/' + $scope.sailboats[index]._id, $scope.sailboats[index])
         .then(function () {
           $scope.message = 'Sailboat successfully updated.';
         })
@@ -101,4 +101,8 @@ angular.module('galapagosApp')
     $scope.isAvailable = function () {
       return User.isAvailable;
     };
+
+    $scope.$on('$destroy', function() {
+      socket.unsyncUpdates('sailboat');
+    });
   });

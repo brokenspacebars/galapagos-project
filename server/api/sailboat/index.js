@@ -10,7 +10,7 @@ router.get('/', controller.index);
 router.get('/:id', controller.show);
 router.get('/user/:creator', controller.showCreatorBoats);
 router.post('/', auth.isAuthenticated(), controller.create);
-router.put('/:id', auth.isAuthenticated(), controller.update);
+router.post('/:id', auth.isAuthenticated(), controller.update);
 router.patch('/:id', auth.isAuthenticated(), controller.update);
 router.delete('/:id', auth.isAuthenticated(), controller.destroy);
 

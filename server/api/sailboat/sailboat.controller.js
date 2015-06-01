@@ -5,8 +5,8 @@ var Sailboat = require('./sailboat.model');
 
 // Get list of sailboats
 exports.index = function(req, res) {
-  Sailboat.find(function (err, sailboats) {
-    if(err) { return handleError(res, err); }
+  Sailboat.find({}, function (err, sailboats) {
+    if(err) return res.send(500, err);
     return res.json(200, sailboats);
   });
 };

@@ -1,7 +1,7 @@
 'use strict';
 
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 var SailboatSchema = new Schema({
   name: {
@@ -24,7 +24,10 @@ var SailboatSchema = new Schema({
   	type: Date,
   	default: Date.now
   },
-  raceName: String,
+  raceName: {
+    type: String,
+    default: 'Event'
+  },
   _creator: {
   	type: Schema.Types.ObjectId,
   	ref: 'User',

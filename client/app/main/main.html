@@ -42,6 +42,21 @@
       </ul>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">Available sailboats:</h1>
+      <p ng-show="availableSailboats.length === 0">There are not available sailboats.</p>
+      <ul class="col-md-4 col-lg-4 col-sm-6 list-group" ng-repeat="sailboat in availableSailboats">
+        <li class="list-group-item">
+          <a href="profile/{{ sailboat._id }}" tooltip="{{sailboat.info}}">{{sailboat.name}}</a>
+          <span class="">
+            For {{ sailboat.raceName }} on {{ sailboat.raceDate | date:'dd/MM' }}
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
 
 <footer class="footer">

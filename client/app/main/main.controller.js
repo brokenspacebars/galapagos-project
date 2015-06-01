@@ -12,6 +12,10 @@ angular.module('galapagosApp')
     });
 
     $http.get('/api/users').success(function(users) {
+      console.log('users is array: ', Array.isArray(users));
+      console.log(users);
+      console.log(users[1]);
+      console.log(users[1].isAvailable);
       for (var i = 0; i < users.length; i++) {
         if (users[i].isAvailable) {
           $scope.availableUsers.push(users[i]);
@@ -26,6 +30,24 @@ angular.module('galapagosApp')
       // console.log(users);
       // console.log($scope.availableUsers);
     });
+
+    $http.get('/api/sailboats')
+      .success(function(res) {
+        // var sailboats = res.data;
+        // console.log('res it is: ', res);
+        console.log(Array.isArray(res), res.length);
+        console.log(res[0]);
+        console.log(res[0].isAvailable);
+        console.log(res[0].name);
+        for (var i = 0; i < res.length; i++) {
+          if (res[i].isAvailable) {
+            console.log(i, ' is available');
+            $scope.availableSailboats.push(res[i]);
+          }
+        }
+
+        socket.syncUpdatesAvailable('sailboat', $scope.availableSailboats);
+      });
 
     $scope.addThing = function() {
       if($scope.newThing === '') {
@@ -42,5 +64,6 @@ angular.module('galapagosApp')
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('thing');
       socket.unsyncUpdates('user');
+      socket.unsyncUpdates('sailboat');
     });
   });
