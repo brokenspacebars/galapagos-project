@@ -9,7 +9,7 @@ angular.module('galapagosApp')
         controller: 'ProfileUserCtrl'
       })
       .state('profileSailboat', {
-        url: '/profile/:_id',
+        url: '/profile/sailboat/:_id',
         templateUrl: 'app/profile/profileSailboat.html',
         controller: 'ProfileSailboatCtrl'
       });

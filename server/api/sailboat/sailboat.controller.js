@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var Sailboat = require('./sailboat.model');
+var User = require('../user/user.model');
 
 // Get list of sailboats
 exports.index = function(req, res) {
@@ -13,11 +14,13 @@ exports.index = function(req, res) {
 
 // Get a single sailboat
 exports.show = function(req, res) {
-  Sailboat.findById(req.params.id, function (err, sailboat) {
-    if(err) { return handleError(res, err); }
-    if(!sailboat) { return res.send(404); }
-    return res.json(sailboat);
-  });
+  Sailboat.findById(req.params.id)
+    .populate('_creator', 'name username isAvailable bio')
+    .exec(function (err, sailboat) {
+      if(err) { return handleError(res, err); }
+      if(!sailboat) { return res.send(404); }
+      return res.json(sailboat);
+    });
 };
 
 // Creates a new sailboat in the DB.

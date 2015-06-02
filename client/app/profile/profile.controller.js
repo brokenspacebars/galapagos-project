@@ -14,14 +14,15 @@ angular.module('galapagosApp')
 	    	$scope.errors.other = err;
 	    });
   })
-  .controller('ProfileSailboatCtrl', function ($scope, $http, socket, User, Sailboat, $stateParams) {
+  .controller('ProfileSailboatCtrl', function ($scope, $http, socket, User, $stateParams) {
     var id = $stateParams._id;
-    $scope.user = {};
+    $scope.sailboat = {};
     $scope.errors = {};
 
-    $http.get('api/users/' + id)
+    $http.get('api/sailboats/' + id)
       .success(function(res) {
-        $scope.user = res;
+        $scope.sailboat = res;
+        console.log(res);
       })
       .catch(function(err) {
         $scope.errors.other = err;
